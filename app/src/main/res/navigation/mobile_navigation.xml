@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/fragment_select_language">
+
+    <fragment
+        android:id="@+id/fragment_yojna_details"
+        android:name="com.himanshu.sarkariyojna.ui.yojna_details.YojnaDetailsFragment"
+        android:label="YojnaDetailsFragment"
+        tools:layout="@layout/fragment_yojna_details" />
+
+    <fragment
+        android:id="@+id/fragment_select_language"
+        android:name="com.himanshu.sarkari_yojna.settings.ui.select_language.SelectLanguageFragment"
+        android:label="SelectLanguageFragment"
+        tools:layout="@layout/select_language_fragment" />
+
+
+</navigation>
