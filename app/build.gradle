@@ -16,7 +16,7 @@ android {
         applicationId "com.himanshu.sarkariyojna"
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
@@ -30,6 +30,7 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -62,6 +63,10 @@ dependencies {
     implementation project(path: ':ui:yojna_details')
     implementation project(path: ':core')
     implementation project(path: ':data:remote')
+    implementation project(path: ':navigation')
+    implementation project(path: ':ui:settings')
+
+    coreLibraryDesugaring Libs.Android.desugarJdk
 
     testImplementation 'junit:junit:4.13.2'
 

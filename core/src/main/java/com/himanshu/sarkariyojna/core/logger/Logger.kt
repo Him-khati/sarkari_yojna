@@ -22,8 +22,12 @@ class Logger @Inject constructor() {
         message: String,
         vararg args: Any
     ) {
-        Timber.tag(tag)
-        Timber.d(tag, message, args)
+        try {
+            Timber.tag(tag)
+            Timber.d(tag, message, args)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun d(
@@ -32,8 +36,12 @@ class Logger @Inject constructor() {
         message: String,
         vararg args: Any
     ) {
-        Timber.tag(tag)
-        Timber.d(t, message, args)
+        try {
+            Timber.tag(tag)
+            Timber.d(t, message, args)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun e(
@@ -41,8 +49,12 @@ class Logger @Inject constructor() {
         message: String,
         vararg args: Any
     ) {
-        Timber.tag(tag)
-        Timber.e(message, args)
+        try {
+            Timber.tag(tag)
+            Timber.e(message, args)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun e(
@@ -51,8 +63,12 @@ class Logger @Inject constructor() {
         message: String,
         vararg args: Any
     ) {
-        Timber.tag(tag)
-        Timber.e(t, message, args)
+        try {
+            Timber.tag(tag)
+            Timber.e(t, message, args)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
 
@@ -61,8 +77,12 @@ class Logger @Inject constructor() {
         message: String,
         vararg args: Any
     ) {
-        Timber.tag(tag)
-        Timber.i(message, args)
+        try {
+            Timber.tag(tag)
+            Timber.i(message, args)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
 
@@ -72,8 +92,12 @@ class Logger @Inject constructor() {
         message: String,
         vararg args: Any
     ) {
-        Timber.tag(tag)
-        Timber.i(t, message, args)
+        try {
+            Timber.tag(tag)
+            Timber.i(t, message, args)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
 
@@ -82,16 +106,24 @@ class Logger @Inject constructor() {
         message: String,
         vararg args: Any
     ) {
-        Timber.tag(tag)
-        Timber.v(message, args)
+        try {
+            Timber.tag(tag)
+            Timber.v(message, args)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun v(
         tag: String,
         t: Throwable
     ) {
-        Timber.tag(tag)
-        Timber.v(t)
+        try {
+            Timber.tag(tag)
+            Timber.v(t)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun v(
@@ -100,8 +132,12 @@ class Logger @Inject constructor() {
         message: String,
         vararg args: Any
     ) {
-        Timber.tag(tag)
-        Timber.v(t, message, args)
+        try {
+            Timber.tag(tag)
+            Timber.v(t, message, args)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun w(
@@ -109,8 +145,12 @@ class Logger @Inject constructor() {
         message: String,
         vararg args: Any
     ) {
-        Timber.tag(tag)
-        Timber.w(message, args)
+        try {
+            Timber.tag(tag)
+            Timber.w(message, args)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
 
@@ -120,8 +160,12 @@ class Logger @Inject constructor() {
         t: Throwable,
         vararg args: Any
     ) {
-        Timber.tag(tag)
-        Timber.w(t, message, args)
+        try {
+            Timber.tag(tag)
+            Timber.w(t, message, args)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun wtf(
@@ -129,8 +173,12 @@ class Logger @Inject constructor() {
         message: String,
         vararg args: Any
     ) {
-        Timber.tag(tag)
-        Timber.wtf(message, args)
+        try {
+            Timber.tag(tag)
+            Timber.wtf(message, args)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun wtf(
@@ -139,8 +187,12 @@ class Logger @Inject constructor() {
         message: String,
         vararg args: Any
     ) {
-        Timber.tag(tag)
-        Timber.wtf(t, message, args)
+        try {
+            Timber.tag(tag)
+            Timber.wtf(t, message, args)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun setUserInfoForLogger(
@@ -153,5 +205,7 @@ class Logger @Inject constructor() {
 //        firebaseCrashlytics.setCustomKey("email", userIdentifier)
     }
 
-    fun unBindUserFromLogger() {}
+    fun unBindUserFromLogger() {
+
+    }
 }

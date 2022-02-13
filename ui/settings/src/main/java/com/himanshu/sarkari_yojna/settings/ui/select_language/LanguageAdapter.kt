@@ -1,6 +1,7 @@
 package com.himanshu.sarkari_yojna.settings.ui.select_language
 
 import android.annotation.SuppressLint
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +27,13 @@ class LanguageAdapter(
         parent: ViewGroup,
         viewType: Int
     ): LanguageViewHolder {
-        TODO("Not yet implemented")
+       return LanguageViewHolder(
+           RecyclerItemLanguageBinding.inflate(
+               LayoutInflater.from(parent.context),
+               parent,
+               false
+           )
+       )
     }
 
     override fun onBindViewHolder(

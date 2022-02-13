@@ -4,6 +4,8 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.GridLayoutManager
 import com.himanshu.sarkari_yojna.settings.R
 import com.himanshu.sarkari_yojna.settings.databinding.SelectLanguageFragmentBinding
 import com.himanshu.sarkariyojna.android_base.base.BaseFragment
@@ -32,8 +34,25 @@ class SelectLanguageFragment : BaseFragment<SelectLanguageFragmentBinding>(
     ) {
 
         if (viewCreatedForTheFirstTime) {
+            initViews(viewBinding)
             initViewModel()
         }
+    }
+
+    private fun initViews(
+        viewBinding: SelectLanguageFragmentBinding
+    ) {
+        viewBinding.languageRecyclerView.apply {
+            layoutManager = GridLayoutManager(
+                requireContext(),
+                2
+            )
+            itemAnimator = DefaultItemAnimator()
+            isMotionEventSplittingEnabled = false
+            setHasFixedSize(true)
+            adapter = languageAdapter
+        }
+
     }
 
     private fun initViewModel() {

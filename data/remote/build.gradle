@@ -20,6 +20,7 @@ android {
 
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -29,6 +30,10 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':data:data')
+    implementation project(path: ':domain')
+
+    coreLibraryDesugaring Libs.Android.desugarJdk
 
     kapt Libs.Dagger.hiltCompiler
     implementation Libs.Dagger.hilt

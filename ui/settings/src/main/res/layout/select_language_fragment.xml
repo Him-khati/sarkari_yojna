@@ -1,17 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".ui.select_language.SelectLanguageFragment">
 
         <TextView
+            android:id="@+id/slect_language_label_eng"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:gravity="center"
+            android:text="Select Language"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@android:color/black" />
 
-    </FrameLayout>
+        <TextView
+            android:id="@+id/slect_language_label_hindi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="भाषा चुनिए"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@android:color/black" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/language_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:listitem="@layout/recycler_item_language" />
+
+    </LinearLayout>
+
 </layout>

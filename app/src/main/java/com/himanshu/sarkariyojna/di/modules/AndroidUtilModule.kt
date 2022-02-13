@@ -1,6 +1,7 @@
 package com.himanshu.sarkariyojna.di.modules
 
 import android.content.Context
+import android.net.ConnectivityManager
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
@@ -20,6 +21,13 @@ abstract class AndroidUtilModule {
     companion object {
         private const val SESSION_DEPENDENT_STORE_FILE_NAME = "GEmlP05otsYc"
         private const val SESSION_INDEPENDENT_STORE_FILE_NAME = "G08YXPK5zYdg"
+
+        @Provides
+        fun provideConnectivityManager(
+            @ApplicationContext context: Context
+        ) : ConnectivityManager{
+            return context.getSystemService(ConnectivityManager::class.java)
+        }
 
         @SessionDependentDataStore
         @Provides

@@ -74,6 +74,10 @@ object Libs {
         val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
     }
 
+    object Android {
+       val desugarJdk =  "com.android.tools:desugar_jdk_libs:1.1.5"
+    }
+
     object AndroidX {
         val appcompat = "androidx.appcompat:appcompat:1.4.1"
         val browser = "androidx.browser:browser:1.0.0"

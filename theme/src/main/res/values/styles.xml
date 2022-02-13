@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--   HeadLines -->
+
+    <style name="TextViewHeadline6" parent="TextAppearance.MaterialComponents.Headline6" />
+
+    <style name="TextViewHeadline5" parent="TextAppearance.MaterialComponents.Headline5" />
+
+    <style name="TextViewHeadline4" parent="TextAppearance.MaterialComponents.Headline4" />
+
+    <style name="TextViewHeadline3" parent="TextAppearance.MaterialComponents.Headline3" />
+
+    <style name="TextViewHeadline2" parent="TextAppearance.MaterialComponents.Headline2" />
+
+    <style name="TextViewHeadline1" parent="TextAppearance.MaterialComponents.Headline1" />
+
+
+    <!--    Subtitles-->
+
+    <style name="TextViewSubtitle1" parent="TextAppearance.MaterialComponents.Subtitle1" />
+
+    <style name="TextViewSubtitle2" parent="TextAppearance.MaterialComponents.Subtitle2" />
+
+    <!--    Body-->
+
+    <style name="TextViewBody1" parent="TextAppearance.MaterialComponents.Body1" />
+
+    <style name="TextViewBody2" parent="TextAppearance.MaterialComponents.Body2" />
+
+    <style name="TextViewCaption" parent="TextAppearance.MaterialComponents.Caption" />
+
+    <style name="TextViewButton" parent="TextAppearance.MaterialComponents.Button" />
+
+    <style name="TextViewOverline" parent="TextAppearance.MaterialComponents.Overline" />
+</resources>

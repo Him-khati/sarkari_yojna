@@ -31,6 +31,9 @@ android {
 
 dependencies {
 
+    implementation project(path: ':theme')
+    implementation project(path: ':android-common-ui')
+    implementation project(path: ':android-base')
     kapt Libs.Dagger.hiltCompiler
     implementation Libs.Dagger.hilt
 

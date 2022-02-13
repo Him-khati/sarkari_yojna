@@ -1,5 +1,6 @@
 package com.himanshu.sarkari_yojna.settings.ui.select_language
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.himanshu.sarkari_yojna.domain.useCases.language.ChangeAppLanguageUseCase
 import com.himanshu.sarkari_yojna.domain.useCases.language.GetAppLanguagesUseCase
@@ -9,6 +10,7 @@ import com.himanshu.sarkariyojna.android_base.analytics.Analytics
 import com.himanshu.sarkariyojna.android_base.analytics.AnalyticsHelper
 import com.himanshu.sarkariyojna.android_base.base.BaseViewModel
 import com.himanshu.sarkariyojna.android_base.language.Language
+import com.himanshu.sarkariyojna.android_base.network_util.NetworkStateObserver
 import com.himanshu.sarkariyojna.core.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -20,7 +22,8 @@ class SelectLanguageViewModel @Inject constructor(
     private val changeAppLanguageUseCase: ChangeAppLanguageUseCase,
     private val getAppLanguagesUseCase: GetAppLanguagesUseCase,
     private val logger: Logger,
-    private val analyticsHelper: AnalyticsHelper
+    private val analyticsHelper: AnalyticsHelper,
+    private val networkStateObserver: NetworkStateObserver
 ) : BaseViewModel<
         SelectLanguageContract.Event,
         SelectLanguageContract.State,
@@ -30,13 +33,23 @@ class SelectLanguageViewModel @Inject constructor(
         const val TAG = "SelectLanguageViewModel"
 
         val LanguageCardBackgroundMappings = mapOf<Language, Int>(
-            Language.English to R.color.cardview_shadow_end_color,
-            Language.Hindi to R.color.cardview_shadow_end_color
+            Language.English to R.color.language_card_bck_english,
+            Language.Hindi to R.color.language_card_bck_hindi
         )
     }
 
     init {
+        startObservingNetworkState()
         getAppLanguages()
+    }
+
+    private fun startObservingNetworkState() = viewModelScope.launch {
+
+        networkStateObserver
+            .networkState()
+            .collect {
+                Log.d("NetTAG", it.toString())
+            }
     }
 
     private fun getAppLanguages() = viewModelScope.launch {
