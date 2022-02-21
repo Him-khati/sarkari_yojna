@@ -17,5 +17,19 @@
         android:label="SelectLanguageFragment"
         tools:layout="@layout/select_language_fragment" />
 
+    <fragment
+        android:id="@+id/fragment_select_categories"
+        android:name="com.himanshu.sarkari_yojna.settings.ui.select_categories.SelectCategoriesFragment"
+        android:label="SelectCategoriesFragment"
+        tools:layout="@layout/select_categories_fragment" />
+
+    <action
+        android:id="@+id/action_global_fragment_select_categories"
+        app:destination="@id/fragment_select_categories"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim"
+        app:launchSingleTop="true" />
 
 </navigation>

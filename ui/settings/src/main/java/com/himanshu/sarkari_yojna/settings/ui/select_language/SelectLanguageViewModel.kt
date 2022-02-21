@@ -86,7 +86,7 @@ class SelectLanguageViewModel @Inject constructor(
     }
 
     private fun handleLanguageSelected(language: Language) = viewModelScope.launch {
-        logger.i(TAG, "user selected language", language)
+        logger.i(TAG, "[Action] user selected language", language)
         analyticsHelper.logEvent(Analytics.SettingsLanguage.EVENT_LANGUAGE_SELECTED, language)
 
         try {
@@ -108,7 +108,7 @@ class SelectLanguageViewModel @Inject constructor(
                 setEffect { SelectLanguageContract.Effect.NavigateBackToPreviousScreen }
             } else {
                 logger.i(TAG, "navigating to select state screen")
-                setEffect { SelectLanguageContract.Effect.NavigateToSelectStateScreen }
+                setEffect { SelectLanguageContract.Effect.NavigateToSelectCategoriesScreen }
             }
         }
     }

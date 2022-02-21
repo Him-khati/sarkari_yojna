@@ -6,6 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
+import com.himanshu.sarkari_yojna.navigation.SarkariYojnaNavigation
 import com.himanshu.sarkari_yojna.settings.R
 import com.himanshu.sarkari_yojna.settings.databinding.SelectLanguageFragmentBinding
 import com.himanshu.sarkariyojna.android_base.base.BaseFragment
@@ -76,8 +77,11 @@ class SelectLanguageFragment : BaseFragment<SelectLanguageFragmentBinding>(
                     SelectLanguageContract.Effect.NavigateBackToPreviousScreen -> {
                         findNavController().navigateUp()
                     }
-                    SelectLanguageContract.Effect.NavigateToSelectStateScreen -> {
-
+                    SelectLanguageContract.Effect.NavigateToSelectCategoriesScreen -> {
+                        SarkariYojnaNavigation.navigate(
+                            findNavController(),
+                            SarkariYojnaNavigation.Destinations.SelectCategoriesScreen.DEEPLINK
+                        )
                     }
                     is SelectLanguageContract.Effect.ShowToast -> Toast.makeText(
                         requireContext(),

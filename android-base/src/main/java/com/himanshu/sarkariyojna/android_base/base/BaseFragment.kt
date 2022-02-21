@@ -9,9 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.himanshu.sarkariyojna.core.logger.Logger
-import dagger.hilt.EntryPoint
-import javax.inject.Inject
-import kotlin.reflect.KClass
 
 abstract class BaseFragment<V : ViewDataBinding>(
     private val fragmentName: String,

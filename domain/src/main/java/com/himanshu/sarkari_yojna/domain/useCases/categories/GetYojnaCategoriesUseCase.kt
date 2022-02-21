@@ -4,17 +4,17 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.himanshu.sarkari_yojna.domain.UserPreferencesManager
 import com.himanshu.sarkari_yojna.domain.datastore.yojna_categories.YojnaCategoriesLocalDataStore
 import com.himanshu.sarkari_yojna.domain.datastore.yojna_categories.YojnaCategoriesRemoteDataStore
 import com.himanshu.sarkari_yojna.domain.models.yojna_category.YojnaCategory
+import com.himanshu.sarkari_yojna.domain.models.yojna_category.YojnaCategoryPresentationModel
 import com.himanshu.sarkari_yojna.domain.useCases.UseCase
 import com.himanshu.sarkariyojna.core.di.quatifiers.IoDispatcher
-import com.himanshu.sarkariyojna.core.di.quatifiers.dataStore.SessionIndependentDependentDataStore
+import com.himanshu.sarkariyojna.core.di.quatifiers.dataStore.SessionDependentDataStore
+import com.himanshu.sarkariyojna.core.logger.Logger
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import java.time.Duration
 import java.time.LocalDate
 import javax.inject.Inject
@@ -23,26 +23,49 @@ import javax.inject.Singleton
 @Singleton
 class GetYojnaCategoriesUseCase @Inject constructor(
     @IoDispatcher ioDisPatcher: CoroutineDispatcher,
-    @SessionIndependentDependentDataStore private val dataStore: DataStore<Preferences>,
+    @SessionDependentDataStore private val dataStore: DataStore<Preferences>,
     private val yojnaCategoriesRemoteDataStore: YojnaCategoriesRemoteDataStore,
-    private val yojnaCategoriesLocalDataStore: YojnaCategoriesLocalDataStore
-) : UseCase<Unit, Flow<List<YojnaCategory>>>(ioDisPatcher) {
+    private val yojnaCategoriesLocalDataStore: YojnaCategoriesLocalDataStore,
+    private val userPreferencesManager: UserPreferencesManager,
+    private val logger: Logger
+) : UseCase<Unit?, Flow<List<YojnaCategoryPresentationModel>>>(ioDisPatcher) {
+
+    companion object{
+        private const val TAG = "GetYojnaCategoriesUseCase"
+        private val LAST_CATEGORIES_UPDATED_AT = stringPreferencesKey("8q92b4O10Z")
+        private const val UPDATE_CATEGORIES_IN_DAYS = 7L
+    }
 
     override suspend fun execute(
-        parameters: Unit
-    ): Flow<List<YojnaCategory>> {
+        parameters: Unit?
+    ): Flow<List<YojnaCategoryPresentationModel>> {
 
-        return yojnaCategoriesLocalDataStore
-            .getCachedYojnaCategories()
+      return userPreferencesManager.userSelectedCategories()
             .onStart { updateYojnaCategoriesIfNeeded() }
+            .combine(yojnaCategoriesLocalDataStore.getCachedYojnaCategories()){
+                    userSelectedYojnaIds: Set<String>,
+                    yojnaCategories: List<YojnaCategory> ->
+
+                    yojnaCategories.map {
+                        YojnaCategoryPresentationModel(
+                            category =  it,
+                            selected = userSelectedYojnaIds.contains(it.id)
+                        )
+                    }
+            }
     }
 
     private suspend fun updateYojnaCategoriesIfNeeded() {
+        logger.v(TAG,"Checking if need to update yojna categories....")
+
         if (shouldUpdateYojnaCategories()) {
+            logger.v(TAG,"updating categories....")
 
             val updatedYojnaCategories = yojnaCategoriesRemoteDataStore.getYojnaCategories()
             yojnaCategoriesLocalDataStore.updateYojnaCategories(updatedYojnaCategories)
             updateLastYojnaUpdateTimeStamp()
+
+            logger.d(TAG,"[Success] categories updated")
         }
     }
 
@@ -54,6 +77,11 @@ class GetYojnaCategoriesUseCase @Inject constructor(
 
     private suspend fun shouldUpdateYojnaCategories() = dataStore.data.map {
         val lastUpdateTimeStamp = it[LAST_CATEGORIES_UPDATED_AT]
+        logger.d(
+            TAG,
+            "last categories update timestamp : $lastUpdateTimeStamp"
+        )
+
         if (lastUpdateTimeStamp == null) true
         else {
             val lastUpdateTime = LocalDate.parse(lastUpdateTimeStamp)
@@ -61,9 +89,4 @@ class GetYojnaCategoriesUseCase @Inject constructor(
         }
     }.last()
 
-
-    companion object {
-        private val LAST_CATEGORIES_UPDATED_AT = stringPreferencesKey("8q92b4O10Z")
-        private const val UPDATE_CATEGORIES_IN_DAYS = 7L
-    }
 }

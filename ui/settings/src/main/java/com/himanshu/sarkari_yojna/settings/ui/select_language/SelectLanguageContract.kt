@@ -27,7 +27,7 @@ class SelectLanguageContract {
 
     sealed class Effect : UiEffect {
 
-        object NavigateToSelectStateScreen : Effect()
+        object NavigateToSelectCategoriesScreen : Effect()
 
         object NavigateBackToPreviousScreen : Effect()
 
