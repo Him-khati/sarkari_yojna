@@ -1,39 +1,29 @@
 package com.himanshu.sarkari_yojna.navigation
 
 import android.net.Uri
+import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.navOptions
 
-object SarkariYojnaNavigation {
-
-    object Destinations {
-
-        object YojnaDetailsScreen {
-            const val DEEPLINK = ""
-        }
-
-        object SelectCategoriesScreen {
-            const val DEEPLINK = ""
-        }
-    }
+interface SarkariYojnaNavigation {
 
     fun navigate(
         navController: NavController,
-        deepLink: String,
+        actionId: Int,
+        args: Bundle? = null,
         navOptions: NavOptions? = null
-    ) {
-        navController.navigate(
-            Uri.parse(deepLink),
-            getNavOptions(navOptions)
-        )
-    }
+    ) = navController.navigate(
+        actionId,
+        args,
+        navOptions ?: navOptions {
+            anim {
+            }
+        }
+    )
 
-    private fun getNavOptions(
-        navOptions: NavOptions?
-    ) = navOptions.apply {
+    fun navigateToSelectLanguageScreenSelectCategories(
+        navController: NavController
+    )
 
-    } ?: navOptions {
-        this.launchSingleTop = true
-    }
 }

@@ -12,6 +12,7 @@ import com.himanshu.sarkari_yojna.settings.databinding.SelectLanguageFragmentBin
 import com.himanshu.sarkariyojna.android_base.base.BaseFragment
 import com.himanshu.sarkariyojna.android_base.language.Language
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SelectLanguageFragment : BaseFragment<SelectLanguageFragmentBinding>(
@@ -23,6 +24,8 @@ class SelectLanguageFragment : BaseFragment<SelectLanguageFragmentBinding>(
         const val TAG = "SelectLanguageFragment"
     }
 
+    @Inject
+    lateinit var navigation: SarkariYojnaNavigation
     private val viewModel: SelectLanguageViewModel by viewModels()
 
     private val languageAdapter: LanguageAdapter by lazy {
@@ -62,7 +65,8 @@ class SelectLanguageFragment : BaseFragment<SelectLanguageFragmentBinding>(
 
             viewModel.uiState.collect {
                 when (it) {
-                    SelectLanguageContract.State.LoadingLanguages -> {}
+                    SelectLanguageContract.State.LoadingLanguages -> {
+                    }
                     is SelectLanguageContract.State.ShowLanguagesOnView -> languageAdapter.setLanguages(
                         it.languages
                     )
@@ -77,12 +81,9 @@ class SelectLanguageFragment : BaseFragment<SelectLanguageFragmentBinding>(
                     SelectLanguageContract.Effect.NavigateBackToPreviousScreen -> {
                         findNavController().navigateUp()
                     }
-                    SelectLanguageContract.Effect.NavigateToSelectCategoriesScreen -> {
-                        SarkariYojnaNavigation.navigate(
-                            findNavController(),
-                            SarkariYojnaNavigation.Destinations.SelectCategoriesScreen.DEEPLINK
-                        )
-                    }
+                    SelectLanguageContract.Effect.NavigateToSelectCategoriesScreen -> navigation.navigateToSelectLanguageScreenSelectCategories(
+                        findNavController()
+                    )
                     is SelectLanguageContract.Effect.ShowToast -> Toast.makeText(
                         requireContext(),
                         it.message,

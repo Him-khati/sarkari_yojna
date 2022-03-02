@@ -20,11 +20,7 @@
         <action
             android:id="@+id/action_fragment_select_language_to_fragment_select_categories"
             app:destination="@id/fragment_select_categories"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="true"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:launchSingleTop="true" />
     </fragment>
 
     <fragment

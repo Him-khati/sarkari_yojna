@@ -1,4 +1,4 @@
-package com.himanshu.sarkariyojna.data.cache.datastoreImpl
+package com.himanshu.sarkariyojna.data.cache.datastoreImpl.yojna_categories
 
 import com.himanshu.sarkari_yojna.domain.datastore.yojna_categories.YojnaCategoriesLocalDataStore
 import com.himanshu.sarkari_yojna.domain.models.yojna_category.YojnaCategory
