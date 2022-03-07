@@ -33,6 +33,11 @@ abstract class UseCase<in P, R>(
         execute(parameters)
     }
 
+    suspend fun getFlow(parameters: P): R = withContext(coroutineDispatcher) {
+        execute(parameters)
+    }
+
+
     /**
      * Override this to set the code to be executed.
      */

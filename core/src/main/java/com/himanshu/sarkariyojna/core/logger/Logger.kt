@@ -24,7 +24,7 @@ class Logger @Inject constructor() {
     ) {
         try {
             Timber.tag(tag)
-            Timber.d(tag, message, args)
+            Timber.d(message, args)
         } catch (e: Exception) {
             e.printStackTrace()
         }

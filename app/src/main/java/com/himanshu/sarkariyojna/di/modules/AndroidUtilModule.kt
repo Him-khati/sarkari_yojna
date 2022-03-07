@@ -13,6 +13,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -31,7 +32,7 @@ abstract class AndroidUtilModule {
 
         @SessionDependentDataStore
         @Provides
-        @JvmStatic
+        @Singleton
         fun provideSessionDependentDataStore(
             @ApplicationContext appContext: Context
         ): DataStore<Preferences> {
@@ -44,7 +45,7 @@ abstract class AndroidUtilModule {
 
         @SessionIndependentDependentDataStore
         @Provides
-        @JvmStatic
+        @Singleton
         fun provideSessionInDependentDataStore(
             @ApplicationContext appContext: Context
         ): DataStore<Preferences> {

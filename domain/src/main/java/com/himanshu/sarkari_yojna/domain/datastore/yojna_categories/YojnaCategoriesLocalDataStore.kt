@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface YojnaCategoriesLocalDataStore {
 
-    fun updateYojnaCategories(
+    suspend fun updateYojnaCategories(
         yojnaCategories : List<YojnaCategory>
     )
 

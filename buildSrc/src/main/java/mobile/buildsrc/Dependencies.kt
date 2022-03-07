@@ -126,7 +126,7 @@ object Libs {
         }
 
         object Room {
-            private const val version = "2.2.5"
+            private const val version = "2.4.2"
             val roomKtx = "androidx.room:room-ktx:$version"
             val common = "androidx.room:room-common:$version"
             val runtime = "androidx.room:room-runtime:$version"

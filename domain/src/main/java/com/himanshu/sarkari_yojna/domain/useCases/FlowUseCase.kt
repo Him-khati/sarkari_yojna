@@ -14,9 +14,8 @@ abstract class FlowUseCase<in P, R>(
     private val coroutineDispatcher: CoroutineDispatcher
 ) {
 
-    operator fun invoke(parameters: P): Flow<Result<R>> = execute(parameters)
-        .catch { e -> emit(Result.failure(Exception(e))) }
+    operator fun invoke(parameters: P): Flow<R> = execute(parameters)
         .flowOn(coroutineDispatcher)
 
-    protected abstract fun execute(parameters: P): Flow<Result<R>>
+    protected abstract fun execute(parameters: P): Flow<R>
 }
