@@ -3,25 +3,29 @@ import mobile.buildsrc.Libs
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
 
-    ext {
-        compose_version = '1.0.1'
-    }
     ext.buildConfig = [
-            'compileSdk'      : 31,
+            'compileSdk'      : 33,
             'minSdk'          : 21,
-            'targetSdk'       : 31
+            'targetSdk'       : 33
     ]
 
     repositories {
         google()
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.2'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10'
+        classpath 'com.android.tools.build:gradle:7.2.2'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0'
         classpath Libs.Dagger.hiltGradlePugin
+        classpath "com.autonomousapps:dependency-analysis-gradle-plugin:1.0.0-rc05"
     }
 }
+
+apply plugin: "com.autonomousapps.dependency-analysis"
 
 task clean(type: Delete) {
     delete rootProject.buildDir

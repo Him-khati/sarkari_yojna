@@ -1,19 +1,23 @@
 package com.himanshu.sarkariyojna.data.cache
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.himanshu.sarkariyojna.data.cache.dao.SarkariYojnaCategoryDao
+import com.himanshu.sarkariyojna.data.cache.dao.YojnaDao
+import com.himanshu.sarkariyojna.data.cache.entities.CachedYojna
 import com.himanshu.sarkariyojna.data.cache.entities.CachedYojnaCategory
 import com.himanshu.sarkariyojna.data.cache.typeConverters.LocalDateTimeTypeConverter
 
 @Database(
     entities = [
-        CachedYojnaCategory::class
+        CachedYojnaCategory::class,
+        CachedYojna::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(
@@ -37,4 +41,6 @@ abstract class LocalDatabase : RoomDatabase() {
 
     //Room Daos
     abstract fun getSarkariYojnaCategoriesDao(): SarkariYojnaCategoryDao
+
+    abstract fun getYojnaDao(): YojnaDao
 }

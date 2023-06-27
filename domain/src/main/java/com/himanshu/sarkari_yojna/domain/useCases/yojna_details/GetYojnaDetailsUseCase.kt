@@ -24,6 +24,6 @@ class GetYojnaDetailsUseCase @Inject constructor(
 
     data class Parameters(
         val yojnaId: String,
-        val language: com.himanshu.sarkariyojna.android_base.language.Language
+        val language: Language
     )
 }

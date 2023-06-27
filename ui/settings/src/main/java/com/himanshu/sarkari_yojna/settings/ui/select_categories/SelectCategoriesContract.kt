@@ -2,7 +2,6 @@ package com.himanshu.sarkari_yojna.settings.ui.select_categories
 
 import com.himanshu.sarkari_yojna.domain.models.yojna_category.YojnaCategory
 import com.himanshu.sarkari_yojna.domain.models.yojna_category.YojnaCategoryPresentationModel
-import com.himanshu.sarkari_yojna.settings.ui.select_language.model.LanguagePresentationModel
 import com.himanshu.sarkariyojna.android_base.base.UiEffect
 import com.himanshu.sarkariyojna.android_base.base.UiEvent
 import com.himanshu.sarkariyojna.android_base.base.UiState

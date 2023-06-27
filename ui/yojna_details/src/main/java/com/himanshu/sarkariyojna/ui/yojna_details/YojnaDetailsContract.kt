@@ -2,6 +2,7 @@ package com.himanshu.sarkariyojna.ui.yojna_details
 
 import com.himanshu.sarkariyojna.android_base.language.Language
 import com.himanshu.sarkari_yojna.domain.models.yojna.YojnaDetails
+import com.himanshu.sarkari_yojna.domain.models.yojna.YojnaMetaData
 import com.himanshu.sarkariyojna.android_base.base.UiEffect
 import com.himanshu.sarkariyojna.android_base.base.UiEvent
 import com.himanshu.sarkariyojna.android_base.base.UiState
@@ -11,14 +12,8 @@ class YojnaDetailsContract {
 
     sealed class Event : UiEvent {
 
-        data class YojnaDetailsScreenInitialised(
-            val yojnaId : String
-        ) : Event()
-
         object BookmarkYojnaClicked : Event()
-
         object ShareYojnaClicked : Event()
-
         data class ChangeLanguage(
             val language: Language
         ) : Event()
@@ -29,7 +24,9 @@ class YojnaDetailsContract {
         object LoadingYojnaDetails : State()
 
         data class YojnaDetailsLoadedOrUpdated(
-            val yojna: YojnaDetailsPresentationModel
+            val yojnaMetaData: YojnaMetaData,
+            val yojnaDetails: YojnaDetails,
+            val bionicReadingEnabled: Boolean
         ) : State()
 
         data class ErrorWhileLoadingYojnaDetails(

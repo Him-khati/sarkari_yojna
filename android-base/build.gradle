@@ -19,9 +19,12 @@ android {
     }
 
     buildFeatures {
-        dataBinding true
+        compose true
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion Libs.AndroidX.Compose.composeCompilerVersion
+    }
     compileOptions {
 
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -43,6 +46,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation Libs.AndroidX.dataStore
+    implementation Libs.coil
 
     kapt Libs.Dagger.hiltCompiler
     implementation Libs.Dagger.hilt
@@ -52,4 +56,18 @@ dependencies {
     implementation Libs.Coroutines.android
 
     implementation Libs.AndroidX.Lifecycle.lifeCyleViewModel
+    implementation Libs.AndroidX.Lifecycle.lifeCycleKtx
+
+    implementation 'androidx.activity:activity-ktx:1.4.0'
+    implementation 'androidx.fragment:fragment-ktx:1.4.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+
+    androidTestImplementation Libs.AndroidX.Compose.uiTestJunit
+    debugImplementation Libs.AndroidX.Compose.uiTooling
+    implementation Libs.AndroidX.Compose.ui
+    implementation Libs.AndroidX.Compose.material3
+    implementation Libs.AndroidX.Compose.material3WindowSizeClass
+    implementation Libs.AndroidX.Compose.uiToolingPreview
+    implementation Libs.AndroidX.Compose.activityCompose
 }

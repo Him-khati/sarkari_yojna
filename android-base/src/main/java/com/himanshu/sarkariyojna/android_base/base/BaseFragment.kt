@@ -4,33 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.himanshu.sarkariyojna.core.logger.Logger
 
-abstract class BaseFragment<V : ViewDataBinding>(
-    private val fragmentName: String,
-    @LayoutRes private val layoutId: Int
+abstract class BaseComposeFragment(
+    private val fragmentName: String
 ) : Fragment() {
-
-    private val logger: Logger = Logger()
-    private lateinit var _viewDataBinding: V
 
     val logTag: String
         get() {
             return fragmentName
         }
 
-    val viewBinding: V
-        get() {
-            return _viewDataBinding
-        }
-
-    private var _viewCreatedForTheFirstTime = false
-    val viewCreatedForTheFirstTime get() = _viewCreatedForTheFirstTime
-
+    private val logger = Logger()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,28 +25,14 @@ abstract class BaseFragment<V : ViewDataBinding>(
         savedInstanceState: Bundle?
     ): View {
         logger.d(fragmentName, "onCreateView()")
-
-        if (::_viewDataBinding.isInitialized.not()) {
-            _viewCreatedForTheFirstTime = true
-
-            _viewDataBinding = DataBindingUtil.inflate(
-                inflater,
-                layoutId,
-                container,
-                false
-            )
-        } else {
-            _viewCreatedForTheFirstTime = false
-        }
-
-        return _viewDataBinding.root
+        return createComposeView()
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         logger.d(fragmentName, "viewCreated()")
-        onViewCreatedOrRestored(_viewDataBinding, _viewCreatedForTheFirstTime)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -82,8 +55,5 @@ abstract class BaseFragment<V : ViewDataBinding>(
         logger.d(fragmentName, "onDestroy()")
     }
 
-    abstract fun onViewCreatedOrRestored(
-        viewBinding: V,
-        viewCreatedForTheFirstTime : Boolean
-    )
+    abstract fun createComposeView(): ComposeView
 }

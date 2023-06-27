@@ -21,12 +21,24 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Libs.AndroidX.Compose.composeCompilerVersion
+    }
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     kotlinOptions {
         jvmTarget = '1.8'
     }
 }
 
 dependencies {
+    implementation project(path: ':android-base')
     testImplementation 'junit:junit:4.13.2'
 
     kapt Libs.Dagger.hiltCompiler
@@ -45,4 +57,12 @@ dependencies {
 
     implementation Libs.AndroidX.Navigation.navigationFragmentKtx
     implementation Libs.AndroidX.Navigation.navigationUiKtx
+
+    implementation Libs.Coroutines.core
+    implementation Libs.Coroutines.coreJvm
+    implementation Libs.Coroutines.android
+
+    implementation Libs.AndroidX.Compose.ui
+    implementation Libs.AndroidX.Compose.activityCompose
+    implementation Libs.AndroidX.Navigation.composeNavigation
 }

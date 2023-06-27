@@ -1,5 +1,7 @@
 package com.himanshu.sarkariyojna.ui.yojna_details
 
+import android.net.Uri
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.himanshu.sarkariyojna.android_base.language.Language
 import com.himanshu.sarkari_yojna.domain.models.yojna.YojnaDetails
@@ -15,6 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class YojnaDetailsViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val languagePreferenceManager: LanguagePreferenceManager,
     private val getYojnaDetailsUseCase: GetYojnaDetailsUseCase,
     private val getYojnaMetaDataUseCase: GetYojnaMetaDataUseCase
@@ -28,7 +31,32 @@ class YojnaDetailsViewModel @Inject constructor(
     }
 
     init {
-        setDefaultLanguage()
+        viewModelScope.launch {
+
+            fetchYojnaDetailsMock()
+//            setDefaultLanguage()
+//            fetchYojnaMetaDataAndDetails()
+        }
+    }
+
+    private fun fetchYojnaDetailsMock() {
+        setState {
+            YojnaDetailsContract.State.YojnaDetailsLoadedOrUpdated(
+                yojnaMetaData = YojnaMetaData(
+                    languageAvailable = listOf(Language.English, Language.Hindi),
+                ),
+                bionicReadingEnabled = false,
+                yojnaDetails = YojnaDetails(
+                    yojnaId = "yojna_id",
+                    category = "Yojna-Category",
+                    title = "Yojna tiele sss",
+                    coverImage = Uri.parse("https://img.freepik.com/free-photo/book-composition-with-open-book_23-2147690555.jpg?w=740&t=st=1687540157~exp=1687540757~hmac=29c03e068bd3826f80fd3db937a46e4965afd817a67e29eea28d1f05b0d4a88a"),
+                    author = "Mr Himanshu",
+                    content = "OFSS Bihar Inter Admission Online Application Form 2023 at ofssbihar.in. Students can now apply online for admissions in Intermediate (11th / 12th) Colleges and Schools, download common prospectus and check complete details here. Bihar School Examination Board (BSEB), Patna invites online applications for 11th (+1) or 12th (+2) Colleges & School Admissions through OFSS Bihar",
+                    bookmarked = false
+                )
+            )
+        }
     }
 
     private lateinit var yojnaId: String
@@ -36,8 +64,8 @@ class YojnaDetailsViewModel @Inject constructor(
     private lateinit var yojnaMetaData: YojnaMetaData
     private lateinit var yojnaDetails: YojnaDetails
 
-    private fun setDefaultLanguage() = viewModelScope.launch{
-        languageSelected = languagePreferenceManager.getSelectedLanguage()
+    private suspend fun setDefaultLanguage() {
+        languageSelected = languagePreferenceManager.getSelectedLanguage() ?: languagePreferenceManager.getDefaultAppLanguage()
     }
 
     override fun handleEvent(
@@ -48,9 +76,6 @@ class YojnaDetailsViewModel @Inject constructor(
             event.language
         )
         YojnaDetailsContract.Event.ShareYojnaClicked -> openShareYojnaDialog()
-        is YojnaDetailsContract.Event.YojnaDetailsScreenInitialised -> checkElseFetchYojnaDetails(
-            event.yojnaId
-        )
     }
 
     private fun bookMarkOrRemoveBookMarkFromYojna() {
@@ -67,13 +92,6 @@ class YojnaDetailsViewModel @Inject constructor(
         languageSelected = language
         checkOrCorrectLanguageSelected()
         fetchYojnaDetails()
-    }
-
-    private fun checkElseFetchYojnaDetails(
-        yojnaId: String
-    ) {
-        this.yojnaId = yojnaId
-        fetchYojnaMetaDataAndDetails()
     }
 
     private fun fetchYojnaMetaDataAndDetails() = viewModelScope.launch {
@@ -139,8 +157,11 @@ class YojnaDetailsViewModel @Inject constructor(
         yojnaDetails: YojnaDetails
     ) {
 
-        val yojnaPresentationModel = prepareYojnaPresentationModel(yojnaDetails)
-        setState { YojnaDetailsContract.State.YojnaDetailsLoadedOrUpdated(yojnaPresentationModel) }
+        setState { YojnaDetailsContract.State.YojnaDetailsLoadedOrUpdated(
+            yojnaMetaData = yojnaMetaData,
+            yojnaDetails = yojnaDetails,
+            bionicReadingEnabled = false
+        ) }
     }
 
     private fun prepareYojnaPresentationModel(

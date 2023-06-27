@@ -18,9 +18,13 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
     buildFeatures {
-        dataBinding true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Libs.AndroidX.Compose.composeCompilerVersion
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -34,11 +38,18 @@ dependencies {
     implementation project(path: ':theme')
     implementation project(path: ':android-common-ui')
     implementation project(path: ':android-base')
+    implementation project(path: ':navigation')
+    implementation project(path: ':core')
+    implementation project(path: ':data:data')
+    implementation project(path: ':domain')
+    implementation 'androidx.paging:paging-common-ktx:3.1.1'
+
+    coreLibraryDesugaring Libs.Android.desugarJdk
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
-    implementation project(path: ':navigation')
+
 
     testImplementation 'junit:junit:4.13.2'
 
@@ -51,19 +62,38 @@ dependencies {
     implementation Libs.AndroidX.Lifecycle.lifeCyleViewModel
     implementation Libs.AndroidX.fragmentKtx
 
-    kapt Libs.Dagger.hiltCompiler
-    implementation Libs.Dagger.hilt
-
     implementation Libs.AndroidX.coreKtx
     implementation 'androidx.activity:activity-ktx:1.4.0'
     implementation 'androidx.fragment:fragment-ktx:1.4.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
     implementation Libs.AndroidX.dataStore
     implementation Libs.AndroidX.appcompat
+    implementation Libs.AndroidX.recyclerview
 
     implementation Libs.Google.material
+    implementation Libs.coilCompose
 
     implementation Libs.AndroidX.Navigation.navigationFragmentKtx
     implementation Libs.AndroidX.Navigation.navigationUiKtx
 
     implementation Libs.AndroidX.Lifecycle.lifeCycleKtx
+
+    androidTestImplementation Libs.AndroidX.Compose.uiTestJunit
+    debugImplementation Libs.AndroidX.Compose.uiTooling
+    implementation Libs.AndroidX.Compose.ui
+    implementation Libs.AndroidX.Compose.material3
+    implementation Libs.AndroidX.Compose.material3WindowSizeClass
+    implementation Libs.AndroidX.Compose.uiToolingPreview
+    implementation Libs.AndroidX.Compose.activityCompose
+
+    implementation "com.google.accompanist:accompanist-placeholder-material:0.28.0"
+    implementation "com.google.accompanist:accompanist-placeholder:0.28.0"
+
+    def paging_version = "3.1.1"
+    implementation "androidx.paging:paging-runtime:$paging_version"
+    // optional - Jetpack Compose integration
+    implementation "androidx.paging:paging-compose:1.0.0-alpha18"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+
 }

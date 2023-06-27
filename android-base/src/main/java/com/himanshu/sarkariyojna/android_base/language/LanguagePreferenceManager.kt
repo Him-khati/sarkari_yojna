@@ -5,9 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.himanshu.sarkariyojna.core.di.quatifiers.dataStore.SessionIndependentDependentDataStore
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,14 +26,18 @@ class LanguagePreferenceManager @Inject constructor(
         }
     }
 
-    suspend fun getSelectedLanguage(): Language {
-        return getSelectedLanguageAsFlow().last()
+    suspend fun getSelectedLanguage(): Language? {
+        return getSelectedLanguageAsFlow().firstOrNull()
     }
 
     suspend fun saveLanguage(
         language: Language
     ) = datStore.edit {
         it[KEY_SELECTED_LANGUAGE_CODE] = language.langaugeCode
+    }
+
+    fun getDefaultAppLanguage() : Language{
+        return Language.English
     }
 
 }

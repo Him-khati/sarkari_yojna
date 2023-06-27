@@ -1,6 +1,5 @@
 package com.himanshu.sarkari_yojna.settings.ui.select_categories
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.himanshu.sarkari_yojna.domain.models.yojna_category.YojnaCategory
@@ -9,6 +8,7 @@ import com.himanshu.sarkari_yojna.domain.useCases.categories.GetYojnaCategoriesU
 import com.himanshu.sarkari_yojna.domain.useCases.categories.SaveYojnaCategoriesUseCase
 import com.himanshu.sarkari_yojna.domain.useCases.categories.UpdateYojnaCategoriesUseCase
 import com.himanshu.sarkariyojna.android_base.base.BaseViewModel
+import com.himanshu.sarkariyojna.core.logger.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -18,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SelectCategoriesViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
+    private val logger: Logger,
     private val getYojnaCategoriesUseCase: GetYojnaCategoriesUseCase,
     private val saveYojnaCategoriesUseCase: SaveYojnaCategoriesUseCase,
     private val updateYojnaCategoriesUseCase: UpdateYojnaCategoriesUseCase
@@ -40,10 +41,15 @@ class SelectCategoriesViewModel @Inject constructor(
     }
 
     private fun subscribeToYojnaCategories() = viewModelScope.launch {
-
+        logger.i(TAG,"subscribing to get and update yojna categories usecases...")
         updateYojnaCategoriesUseCase
             .invoke(null)
-            .combine(getYojnaCategoriesUseCase.invoke(null)) { updateCategoriesState, categories ->
+            .combine(
+                getYojnaCategoriesUseCase.invoke(null)
+                    .onEach {
+                        checkIfCategoryIsAlreadySelected(it)
+                    }
+            ) { updateCategoriesState, categories ->
 
                 if (updateCategoriesState is UpdateYojnaCategoriesUseCase.State.CategoriesUpdating) {
                     //Case 1 .Categories are being updated

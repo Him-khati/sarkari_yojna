@@ -18,7 +18,10 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
     buildFeatures {
-        dataBinding true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Libs.AndroidX.Compose.composeCompilerVersion
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -34,6 +37,10 @@ dependencies {
     implementation project(path: ':domain')
     implementation project(path: ':core')
     implementation project(path: ':data:data')
+    implementation project(path: ':data:data')
+    implementation project(path: ':navigation')
+    implementation project(path: ':android-common-ui')
+    implementation project(path: ':theme')
 
     testImplementation 'junit:junit:4.13.2'
 
@@ -50,6 +57,8 @@ dependencies {
     implementation Libs.Dagger.hilt
 
     implementation Libs.AndroidX.coreKtx
+    implementation Libs.coil
+
     implementation 'androidx.activity:activity-ktx:1.4.0'
     implementation 'androidx.fragment:fragment-ktx:1.4.0'
     implementation Libs.AndroidX.dataStore
@@ -61,4 +70,16 @@ dependencies {
     implementation Libs.AndroidX.Navigation.navigationUiKtx
 
     implementation Libs.AndroidX.Lifecycle.lifeCycleKtx
+
+    androidTestImplementation Libs.AndroidX.Compose.uiTestJunit
+    debugImplementation Libs.AndroidX.Compose.uiTooling
+    implementation Libs.AndroidX.Compose.ui
+    implementation Libs.AndroidX.Compose.material3
+    implementation Libs.AndroidX.Compose.material3WindowSizeClass
+    implementation Libs.AndroidX.Compose.uiToolingPreview
+    implementation Libs.AndroidX.Compose.activityCompose
+    implementation Libs.AndroidX.Compose.lifeCycleRuntimeCompose
+    implementation Libs.coilCompose
+
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 }

@@ -29,6 +29,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -36,14 +37,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-        useIR = true
     }
     buildFeatures {
-        dataBinding true
+        compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.5.21'
+        kotlinCompilerExtensionVersion Libs.AndroidX.Compose.composeCompilerVersion
     }
     packagingOptions {
         resources {
@@ -65,28 +64,45 @@ dependencies {
     implementation project(path: ':data:remote')
     implementation project(path: ':navigation')
     implementation project(path: ':ui:settings')
+    implementation project(path: ':android-common-ui')
+    implementation project(path: ':theme')
 
     coreLibraryDesugaring Libs.Android.desugarJdk
 
-    testImplementation 'junit:junit:4.13.2'
-
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation Libs.Testing.junit
+    testImplementation Libs.AndroidX.archCoreTesting
+    testImplementation Libs.Coroutines.test
+    testImplementation Libs.Testing.turbine
+    testImplementation Libs.Testing.mockk
 
     kapt Libs.Dagger.hiltCompiler
     implementation Libs.Dagger.hilt
+    implementation Libs.Dagger.hiltNavigationCompose
 
     implementation Libs.AndroidX.coreKtx
     implementation Libs.AndroidX.dataStore
     implementation Libs.AndroidX.appcompat
 
     implementation Libs.Google.material
+    implementation Libs.coil
 
-    implementation Libs.AndroidX.Navigation.navigationFragmentKtx
-    implementation Libs.AndroidX.Navigation.navigationUiKtx
+    implementation Libs.AndroidX.fragmentKtx
+    implementation Libs.AndroidX.activityKtx
 
     implementation Libs.AndroidX.Lifecycle.lifeCycleKtx
 
     kapt Libs.AndroidX.Room.compiler
     implementation Libs.AndroidX.Room.roomKtx
+
+    implementation Libs.AndroidX.splashScreen
+
+    androidTestImplementation Libs.AndroidX.Compose.uiTestJunit
+    debugImplementation Libs.AndroidX.Compose.uiTooling
+    implementation Libs.AndroidX.Compose.ui
+    implementation Libs.AndroidX.Compose.material3
+    implementation Libs.AndroidX.Compose.material3WindowSizeClass
+    implementation Libs.AndroidX.Compose.uiToolingPreview
+    implementation Libs.AndroidX.Compose.activityCompose
+
+    implementation Libs.AndroidX.Navigation.composeNavigation
 }

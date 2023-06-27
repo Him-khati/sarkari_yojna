@@ -1,6 +1,5 @@
 package com.himanshu.sarkari_yojna.settings.ui.select_language
 
-import com.himanshu.sarkari_yojna.settings.ui.select_language.model.LanguagePresentationModel
 import com.himanshu.sarkariyojna.android_base.language.Language
 import com.himanshu.sarkariyojna.android_base.base.UiEffect
 import com.himanshu.sarkariyojna.android_base.base.UiEvent
@@ -20,14 +19,14 @@ class SelectLanguageContract {
         object LoadingLanguages : State()
 
         data class ShowLanguagesOnView(
-            val languages: List<LanguagePresentationModel>
+            val languages: List<Language>
         ) : State()
 
     }
 
     sealed class Effect : UiEffect {
 
-        object NavigateToSelectCategoriesScreen : Effect()
+        object NavigateToHomeScreen : Effect()
 
         object NavigateBackToPreviousScreen : Effect()
 

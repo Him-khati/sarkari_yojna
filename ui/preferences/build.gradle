@@ -18,8 +18,12 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
     buildFeatures {
-        dataBinding true
+        compose true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion Libs.AndroidX.Compose.composeCompilerVersion
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -31,8 +35,11 @@ android {
 
 dependencies {
 
+    implementation project(path: ':theme')
     kapt Libs.Dagger.hiltCompiler
     implementation Libs.Dagger.hilt
+
+    implementation Libs.coil
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
@@ -40,4 +47,12 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    androidTestImplementation Libs.AndroidX.Compose.uiTestJunit
+    debugImplementation Libs.AndroidX.Compose.uiTooling
+    implementation Libs.AndroidX.Compose.ui
+    implementation Libs.AndroidX.Compose.material3
+    implementation Libs.AndroidX.Compose.material3WindowSizeClass
+    implementation Libs.AndroidX.Compose.uiToolingPreview
+    implementation Libs.AndroidX.Compose.activityCompose
 }

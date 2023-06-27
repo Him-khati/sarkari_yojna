@@ -4,7 +4,9 @@ import android.content.Context
 import com.himanshu.sarkari_yojna.domain.datastore.yojna_categories.YojnaCategoriesLocalDataStore
 import com.himanshu.sarkariyojna.data.cache.LocalDatabase
 import com.himanshu.sarkariyojna.data.cache.dao.SarkariYojnaCategoryDao
+import com.himanshu.sarkariyojna.data.cache.datastoreImpl.yojna.YojnaCacheDataStoreImpl
 import com.himanshu.sarkariyojna.data.cache.datastoreImpl.yojna_categories.YojnaCategoriesLocalDataStoreImpl
+import com.himanshu.sarkariyojna.data.repostoriesImpl.YojnaCacheDataStore
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -38,8 +40,18 @@ abstract class CacheModule {
     }
 
     @Binds
+    @Singleton
     abstract fun bindYojnaCategoriesLocalDataStore(
         yojnaCategoriesLocalDataStore: YojnaCategoriesLocalDataStoreImpl
     ): YojnaCategoriesLocalDataStore
+
+    @Binds
+    @Singleton
+    abstract fun bindYojnaCacheDataStore(
+        YojnaCacheDataStore: YojnaCacheDataStoreImpl
+    ): YojnaCacheDataStore
+
+
+
 
 }
